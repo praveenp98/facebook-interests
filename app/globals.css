@@ -1,0 +1,195 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --text-primary: #000080;
+  --bg-primary: #c0c0c0;
+  --border-color: #808080;
+}
+
+/* Increase base font size */
+html {
+  font-size: 18px; /* Increased from default 16px */
+}
+
+/* Larger fonts for specific elements */
+.window-body {
+  font-size: 1.1rem; /* Bigger base font for window content */
+}
+
+.title-bar {
+  font-size: 1.2rem; /* Bigger title bar text */
+}
+
+.title-bar-text {
+  font-size: 1.2rem;
+}
+
+/* Make input box match button height and style */
+input[type="text"] {
+  font-size: 1.1rem;
+  padding: 8px 12px;
+  height: 40px !important; /* Force consistent height */
+  line-height: 24px;
+  width: 400px !important; /* Make input box wider */
+}
+
+/* Fix button styling */
+button {
+  font-size: 1.1rem !important;
+  padding: 8px 16px !important;
+  height: 40px !important; /* Match input height */
+  line-height: 24px !important;
+  color: black !important; /* Force black text */
+  font-weight: normal !important;
+}
+
+/* Bigger table text */
+table {
+  font-size: 1.1rem;
+}
+
+th {
+  font-size: 1.1rem;
+  padding: 8px 12px !important;
+}
+
+td {
+  font-size: 1.1rem;
+  padding: 8px 12px !important;
+}
+
+/* Status bar bigger text */
+.status-bar {
+  font-size: 1rem;
+}
+
+.status-bar-field {
+  font-size: 1rem;
+}
+
+.debug-summary {
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 8px;
+  background-color: var(--bg-primary);
+  border: 1px solid var(--border-color);
+}
+
+.debug-content {
+  margin-top: 8px;
+  padding: 12px !important;
+  background-color: #000000 !important;
+  font-family: 'DOS', monospace;
+  color: #00ff00 !important;
+  border: 1px solid #00ff00;
+}
+
+.debug-item {
+  display: block;
+  margin-bottom: 8px;
+  line-height: 1.5;
+  font-size: 1.1rem;
+}
+
+.debug-label {
+  color: #00ff00;
+  margin-right: 8px;
+  font-weight: bold;
+}
+
+.debug-value {
+  color: #ffffff;
+}
+
+.debug-value.error {
+  color: #ff0000;
+}
+
+/* Animation for the details element */
+details[open] .debug-content {
+  animation: slideDown 0.2s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Custom arrow for the summary */
+details > summary {
+  list-style: none;
+}
+
+details > summary::-webkit-details-marker {
+  display: none;
+}
+
+details > summary::before {
+  content: '►';
+  margin-right: 8px;
+  color: var(--text-primary);
+  display: inline-block;
+  transition: transform 0.2s;
+}
+
+details[open] > summary::before {
+  transform: rotate(90deg);
+}
+
+pre, code, .debug-info {
+  font-size: 1.1rem;
+  font-family: 'DOS', 'Courier New', Courier, monospace;
+}
+
+/* Make sure loading text is also bigger */
+.loading-indicator + p {
+  font-size: 1.1rem;
+}
+
+/* Error messages */
+.sunken-panel p {
+  font-size: 1.1rem;
+}
+
+/* Pagination text */
+.field-row p {
+  font-size: 1.1rem;
+}
+
+/* Form row alignment */
+.field-row {
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+
+/* Make text cursor (caret) more prominent */
+input[type="text"] {
+  caret-width: 4px;
+  caret-color: #000080; /* Classic Windows blue */
+  animation: blink-caret 1.5s step-end infinite;
+  caret-shape: block; /* Note: This is experimental and might not work in all browsers */
+}
+
+/* Blinking animation for the caret */
+@keyframes blink-caret {
+  from, to { caret-color: #000080; }
+  80% { caret-color: transparent; }
+}
+
+/* Optional: Add a custom selection color when text is highlighted */
+input[type="text"]::selection {
+  background-color: #000080;
+  color: white;
+  
+}
