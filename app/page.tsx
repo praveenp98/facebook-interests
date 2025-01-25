@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-import '98.css' // You'll need to install this package
+import '98.css';
 
 interface Interest {
   name: string;
@@ -63,7 +63,6 @@ export default function Home() {
 
   const handleCopyToClipboard = async () => {
     try {
-      // Format all interests as CSV
       const csvContent = [
         ['Name', 'Audience Size', 'Category Path', 'Topic', 'ID'].join(','),
         ...interests.map(interest => [
@@ -89,183 +88,155 @@ export default function Home() {
   const endIndex = startIndex + resultsPerPage;
   const currentInterests = interests.slice(startIndex, endIndex);
 
-  const Pagination = () => (
-    <div className="flex justify-between items-center mt-4 mb-8">
-      <button 
-        onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-        disabled={currentPage === 1}
-        className="px-4 py-2 bg-gray-200 rounded-md disabled:bg-gray-100 
-                 disabled:text-gray-px-4 py-2 bg-blue-600 text-white rounded-md 
-               disabled:bg-gray-300 disabled:text-gray-500 
-               hover:bg-blue-700 transition-colors font-medium"
-      >
-        Previous
-      </button>
-      <span className="text-gray-600">
-        Page {currentPage} of {totalPages || 1}
-      </span>
-      <button 
-        onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-        disabled={currentPage === totalPages || totalPages === 0}
-        className="px-4 px-4 py-2 bg-blue-600 text-white rounded-md 
-               disabled:bg-gray-300 disabled:text-gray-500 
-               hover:bg-blue-700 transition-colors font-medium"
-      >
-        Next
-      </button>
-    </div>
-  );
-
-  // Update the return JSX with retro styling:
-return (
-  <main className="min-h-screen bg-gray-900 p-8">
-    <div className="window max-w-6xl mx-auto shadow-lg">
-      <div className="title-bar">
-        <div className="title-bar-text">
-          Facebook Ads Interest Explorer v1.0
-        </div>
-        <div className="title-bar-controls">
-          <button aria-label="Minimize"></button>
-          <button aria-label="Maximize"></button>
-          <button aria-label="Close"></button>
-        </div>
-      </div>
-      
-      <div className="window-body">
-        <div className="status-bar mb-4">
-          <p className="status-bar-field">Ready</p>
-          <p className="status-bar-field">CPU Usage: 12%</p>
-          <p className="status-bar-field">RAM: 64MB</p>
-        </div>
-
-        <form onSubmit={handleSearch} className="field-row mb-4">
-          <input
-            type="text"
-            value={keyword}
-            onChange={(e) => setKeyword(e.target.value)}
-            placeholder="Enter keyword to search interests..."
-            className="w-80"
-            disabled={loading}
-          />
-          <button 
-            type="submit" 
-            disabled={loading || !keyword.trim()}
-            className="ml-2"
-          >
-            {loading ? 'Searching...' : 'Search Interests'}
-          </button>
-        </form>
-
-        {loading && (
-          <div className="sunken-panel p-4 text-center">
-            <div className="loading-indicator"></div>
-            <p>Searching for interests...</p>
+  return (
+    <main className="min-h-screen bg-gray-900 p-8">
+      <div className="window max-w-6xl mx-auto shadow-lg">
+        <div className="title-bar">
+          <div className="title-bar-text">
+            Facebook Ads Interest Explorer v1.0
           </div>
-        )}
-
-        {error && (
-          <div className="sunken-panel p-4 bg-red-50 text-red-600">
-            <pre>{error}</pre>
+          <div className="title-bar-controls">
+            <button aria-label="Minimize"></button>
+            <button aria-label="Maximize"></button>
+            <button aria-label="Close"></button>
           </div>
-        )}
-
-        {searchCompleted && !loading && interests.length === 0 && !error && (
-          <div className="sunken-panel p-4">
-            <p>No interests found for "{keyword}"</p>
+        </div>
+        
+        <div className="window-body">
+          <div className="status-bar mb-4">
+            <p className="status-bar-field">Ready</p>
+            <p className="status-bar-field">CPU Usage: 12%</p>
+            <p className="status-bar-field">RAM: 64MB</p>
           </div>
-        )}
 
-        {interests.length > 0 && (
-          <>
-            <div className="field-row mb-4">
-              <p>
-                Showing {startIndex + 1}-{Math.min(endIndex, interests.length)} of {interests.length} results
-              </p>
-              <button
-                onClick={handleCopyToClipboard}
-                className="ml-auto"
-              >
-                Copy All Results to Clipboard
-              </button>
+          <form onSubmit={handleSearch} className="field-row mb-4">
+            <input
+              type="text"
+              value={keyword}
+              onChange={(e) => setKeyword(e.target.value)}
+              placeholder="Enter keyword to search interests..."
+              className="w-80"
+              disabled={loading}
+            />
+            <button 
+              type="submit" 
+              disabled={loading || !keyword.trim()}
+              className="ml-2"
+            >
+              {loading ? 'Searching...' : 'Search Interests'}
+            </button>
+          </form>
+
+          {loading && (
+            <div className="sunken-panel p-4 text-center">
+              <div className="loading-indicator"></div>
+              <p>Searching for interests...</p>
             </div>
+          )}
 
-            {copySuccess && (
-              <div className="message-box">
-                <p>{copySuccess}</p>
+          {error && (
+            <div className="sunken-panel p-4 bg-red-50 text-red-600">
+              <pre>{error}</pre>
+            </div>
+          )}
+
+          {searchCompleted && !loading && interests.length === 0 && !error && (
+            <div className="sunken-panel p-4">
+              <p>No interests found for "{keyword}"</p>
+            </div>
+          )}
+
+          {interests.length > 0 && (
+            <>
+              <div className="field-row mb-4">
+                <p>
+                  Showing {startIndex + 1}-{Math.min(endIndex, interests.length)} of {interests.length} results
+                </p>
+                <button
+                  onClick={handleCopyToClipboard}
+                  className="ml-auto"
+                >
+                  Copy All Results to Clipboard
+                </button>
               </div>
-            )}
 
-            <div className="sunken-panel">
-              <table className="w-full">
-                <thead>
-                  <tr>
-                    <th className="px-4 py-2 text-left">Name</th>
-                    <th className="px-4 py-2 text-left">Audience Size</th>
-                    <th className="px-4 py-2 text-left">Category Path</th>
-                    <th className="px-4 py-2 text-left">Topic</th>
-                    <th className="px-4 py-2 text-left">ID</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {currentInterests.map((interest, index) => (
-                    <tr key={index} className="hover:bg-[#000080] hover:text-white">
-                      <td className="px-4 py-2">{interest.name}</td>
-                      <td className="px-4 py-2">{interest.audience_size.toLocaleString()}</td>
-                      <td className="px-4 py-2">{interest.path}</td>
-                      <td className="px-4 py-2">{interest.topic}</td>
-                      <td className="px-4 py-2">{interest.id}</td>
+              {copySuccess && (
+                <div className="message-box">
+                  <p>{copySuccess}</p>
+                </div>
+              )}
+
+              <div className="sunken-panel">
+                <table className="w-full">
+                  <thead>
+                    <tr>
+                      <th className="px-4 py-2 text-left">Name</th>
+                      <th className="px-4 py-2 text-left">Audience Size</th>
+                      <th className="px-4 py-2 text-left">Category Path</th>
+                      <th className="px-4 py-2 text-left">Topic</th>
+                      <th className="px-4 py-2 text-left">ID</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {currentInterests.map((interest, index) => (
+                      <tr key={index} className="hover:bg-[#000080] hover:text-white">
+                        <td className="px-4 py-2">{interest.name}</td>
+                        <td className="px-4 py-2">{interest.audience_size.toLocaleString()}</td>
+                        <td className="px-4 py-2">{interest.path}</td>
+                        <td className="px-4 py-2">{interest.topic}</td>
+                        <td className="px-4 py-2">{interest.id}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
-            <div className="field-row mt-4 justify-between">
-              <button 
-                onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
-                disabled={currentPage === 1}
-              >
-                Previous
-              </button>
-              <p>Page {currentPage} of {totalPages || 1}</p>
-              <button 
-                onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
-                disabled={currentPage === totalPages || totalPages === 0}
-              >
-                Next
-              </button>
-            </div>
-          </>
-        )}
+              <div className="field-row mt-4 justify-between">
+                <button 
+                  onClick={() => setCurrentPage(prev => Math.max(prev - 1, 1))}
+                  disabled={currentPage === 1}
+                >
+                  Previous
+                </button>
+                <p>Page {currentPage} of {totalPages || 1}</p>
+                <button 
+                  onClick={() => setCurrentPage(prev => Math.min(prev + 1, totalPages))}
+                  disabled={currentPage === totalPages || totalPages === 0}
+                >
+                  Next
+                </button>
+              </div>
+            </>
+          )}
 
-        {/* Debug Panel */}
-        {/* Debug Panel */}
-<div className="sunken-panel mt-8 p-4">
-  <details>
-    <summary className="debug-summary">Debug Information</summary>
-    <div className="tree-view debug-content">
-      <div className="debug-item">
-        <span className="debug-label">Loading:</span> 
-        <span className="debug-value">{loading ? 'Yes' : 'No'}</span>
-      </div>
-      <div className="debug-item">
-        <span className="debug-label">Search Completed:</span> 
-        <span className="debug-value">{searchCompleted ? 'Yes' : 'No'}</span>
-      </div>
-      <div className="debug-item">
-        <span className="debug-label">Number of Results:</span> 
-        <span className="debug-value">{interests.length}</span>
-      </div>
-      {error && (
-        <div className="debug-item">
-          <span className="debug-label">Error:</span> 
-          <span className="debug-value error">{error}</span>
+          {/* Debug Panel */}
+          <div className="sunken-panel mt-8 p-4">
+            <details>
+              <summary className="debug-summary">Debug Information</summary>
+              <div className="tree-view debug-content">
+                <div className="debug-item">
+                  <span className="debug-label">Loading:</span> 
+                  <span className="debug-value">{loading ? 'Yes' : 'No'}</span>
+                </div>
+                <div className="debug-item">
+                  <span className="debug-label">Search Completed:</span> 
+                  <span className="debug-value">{searchCompleted ? 'Yes' : 'No'}</span>
+                </div>
+                <div className="debug-item">
+                  <span className="debug-label">Number of Results:</span> 
+                  <span className="debug-value">{interests.length}</span>
+                </div>
+                {error && (
+                  <div className="debug-item">
+                    <span className="debug-label">Error:</span> 
+                    <span className="debug-value error">{error}</span>
+                  </div>
+                )}
+              </div>
+            </details>
+          </div>
         </div>
-      )}
-            </div>
-          </details>
-        </div>
       </div>
-    </div>
-  </main>
-);
+    </main>
+  );
+}
