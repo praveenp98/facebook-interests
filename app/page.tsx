@@ -10,7 +10,7 @@ interface Interest {
   id: string;
 }
 
-export default function Home() {
+export default function Home() 
   const [keyword, setKeyword] = useState('');
   const [interests, setInterests] = useState<Interest[]>([]);
   const [loading, setLoading] = useState(false);
@@ -59,7 +59,6 @@ export default function Home() {
       setLoading(false);
       setSearchCompleted(true);
     }
-  };
 
   const handleCopyToClipboard = async () => {
     try {
@@ -238,5 +237,5 @@ export default function Home() {
         </div>
       </div>
     </main>
-  )
+  );
 }
