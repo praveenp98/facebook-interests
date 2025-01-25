@@ -10,7 +10,7 @@ interface Interest {
   id: string;
 }
 
-export default function Home() 
+export default function Home() {
   const [keyword, setKeyword] = useState('');
   const [interests, setInterests] = useState<Interest[]>([]);
   const [loading, setLoading] = useState(false);
@@ -31,7 +31,7 @@ export default function Home()
     setCurrentPage(1);
     setCopySuccess('');
 
-    try {{
+    try {
       console.log('Starting search...'); // Debug log
 
       const response = await fetch('/api/search-interests', {
@@ -59,6 +59,7 @@ export default function Home()
       setLoading(false);
       setSearchCompleted(true);
     }
+  };
 
   const handleCopyToClipboard = async () => {
     try {
@@ -238,5 +239,4 @@ export default function Home()
       </div>
     </main>
   );
-}
 }
