@@ -31,7 +31,7 @@ export default function Home()
     setCurrentPage(1);
     setCopySuccess('');
 
-    try {
+    try {{
       console.log('Starting search...'); // Debug log
 
       const response = await fetch('/api/search-interests', {
@@ -238,4 +238,5 @@ export default function Home()
       </div>
     </main>
   );
+}
 }
